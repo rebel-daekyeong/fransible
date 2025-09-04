@@ -1,0 +1,6 @@
+[submodule "submodules/froles"]
+	path = submodules/froles
+	url = git@github.com:rebel-daekyeong/froles.git
+[submodule "submodules/fraybooks"]
+	path = submodules/fraybooks
+	url = git@github.com:rebel-daekyeong/fraybooks.git
