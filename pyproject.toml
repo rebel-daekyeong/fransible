@@ -1,0 +1,28 @@
+[project]
+name = "fransible"
+version = "0.1.0"
+description = "Ansible for Framework Software of Rebellions"
+authors = [
+    {name = "Daekyeong Kim",email = "daekyeong.kim@rebellions.ai"}
+]
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "ansible (>=10,<11)",
+    "ansible-dev-tools (>=25.8.3,<26.0.0)",
+    "ansible-lint (>=25.8.1,<26.0.0)",
+    "jmespath (>=1.0.1,<2.0.0)",
+    "kubernetes (>=33.1.0,<34.0.0)",
+    "netaddr (>=1.3.0,<2.0.0)",
+    "poetry (==2.0.1)",
+    "toml (>=0.10.2,<0.11.0)",
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry]
+package-mode = false

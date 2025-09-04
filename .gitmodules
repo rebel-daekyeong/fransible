@@ -4,3 +4,6 @@
 [submodule "submodules/fraybooks"]
 	path = submodules/fraybooks
 	url = git@github.com:rebel-daekyeong/fraybooks.git
+[submodule "submodules/kubespray"]
+	path = submodules/kubespray
+	url = https://github.com/kubernetes-sigs/kubespray

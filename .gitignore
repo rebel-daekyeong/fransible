@@ -1,0 +1,11 @@
+*.orig
+.DS_Store
+.ansible/
+.continue/
+.env
+.venv
+.vscode/
+artifacts/
+credentials/
+env
+venv

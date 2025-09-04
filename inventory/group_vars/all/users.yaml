@@ -1,0 +1,75 @@
+---
+users_groups:
+- { name: sw_dev, gid: 3100 }
+
+users:
+- { name: ci_bot, uid: 1600 }
+- name: daekyeong
+  uid: 2036
+  groups: [ sw_dev ]
+  admin: true
+  sudo: true
+  ssh_public_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOidKD1u9BAe4OW3NQ/V7UEU+0lBpFS5sZ2gZ3d1XMwP daekyeong@daekyeongkimrebellionsai.local
+  ldap_username: daekyeong.kim
+- name: jinmoo
+  uid: 2052
+  groups: [ sw_dev ]
+  admin: true
+  sudo: true
+  ssh_public_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHg4c6RHHlEeeAZhRWzo/ggsmBbsXx+NWGDGbHIqRxCY jinmoo_seok@NO-202506-005.local
+  ldap_username: jinmoo_seok
+- name: jiwoo
+  uid: 2038
+  groups: [ sw_dev ]
+  ssh_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDlnMN2WynW4ApHOmbnsNFdcAV+KQ7dl085bIyDsOdDtB1L27hs6l/F7ykdIYGJuc+S0GOo58ZCiag8pIQtTC1D3gjVVet5E9EjlN4IwySwWLCn+77W6XntXOgeeVQ5OqC1vR6jyudGsf+tieQSZLS4EgtgwGpfKCtlA6J2+nYoZavxIZME4aCunDYuUY5dTw62fFVOk+qGDXfm4IrWq1T8KG9Q/gPaVVibM6eBz8/uCnwrPYf7x3JoBwl+RjUx12D9dg1VJUYu4NodTyZpUNf4BNygP5pluMM6A1bE2fd9ChldMzXz0pbgNWy7juUx12u0ohNh5tXf+FrMCBnu2pvt53rNLE1+5Bbwk1f699wcmrYkmye6qWXO7AW+cZ5t9tzi+qR6xMarW/yk2veTgPxvDahGXgN9A6dVFR+C50DZHtHd4rDdQgMhM7Q51jNcyn70wCeWO5GMJsOpbNUEKMAa4dK1y9hiXH19HHF0b0Z9mJ5MmU5gdEuLlCkAyu+GGts= jiwoopark@Jiwooui-MacBookPro.local
+  ldap_username: jiwoo.park
+- name: scottlee
+  uid: 2039
+  groups: [ sw_dev ]
+  ssh_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCnt6WVb62+zVH97QQ7H2tAVONDD+zQeWH4jRbrtN0Mq8ktkN9mwhipDhVdNKkye+o0zDMgJeBXBjWx2D5DCLRxihjXWqi/shoTY/zxsXtNXFMMLDDcfMdfZ951SyE2CnFHO4+rlGfOxsJRFxJSwX1ZGUl+TrFHB3yojyK4TUdEcWULbzx/DLN6N8O2GqB/zV+WHBysTSa5WKP58LgE2MIUVVDf1+yu0qLs88FRViOR6A8mLdJomUSwEmVxqi+5kPVSvluUrhEJZgArXVJGFmIrIpab4JdNbWc5dLfOcjsHuKzKgS6q/Y8UujOgo1FsK1lTmcClBzMJ08Homs7B+crNQJK+ioVWoxJiSzxgo7uJi6E3dLo6ZqxTYjWhUErZ+zqrKk1Y8vlOq4dLscKdos64dm22Mv6wY+12avG/G/LXpI/4jvc9vroduHLhtDCMFmhYZW84msvDv012PSNXBAJJ/nDWv46NhmrIwo7vtN5ZX8B05IK6nKy2vAcCfSDHo0s= scottlee@Scotts-MacBook-Pro.local
+  ldap_username: scott.lee
+- name: jaehwang.jung
+  uid: 2049
+  groups: [ sw_dev ]
+  ssh_public_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJfSwBnbM1ojQ1pN7Kf89QhgVso0Able5zrVZOysSzYG jaehwang.jung@NO-202503-002
+  ldap_username: jaehwang.jung
+- name: chanheo
+  uid: 2040
+  groups: [ sw_dev ]
+  ldap_username: chan.heo
+- name: hongseok
+  uid: 2028
+  groups: [ sw_dev ]
+  ldap_username: hongseok
+- name: jindol21
+  uid: 2042
+  groups: [ sw_dev ]
+  ldap_username: jindol21
+- name: jongwonlee
+  uid: 2031
+  groups: [ sw_dev ]
+  ldap_username: jongwon.lee
+- name: minwook
+  uid: 2029
+  groups: [ sw_dev ]
+  ldap_username: minwook.ahn
+- name: rebel-clee
+  uid: 2035
+  groups: [ sw_dev ]
+  ldap_username: clee
+- name: seungchul
+  uid: 2041
+  groups: [ sw_dev ]
+  ldap_username: seungchul.han
+- name: wonsubkim
+  uid: 2030
+  groups: [ sw_dev ]
+  ldap_username: subang0
+- name: ykchoi
+  uid: 2032
+  groups: [ sw_dev ]
+  ldap_username: youngkyu.choi
+
+local_pvs:
+- { name: daekyeong, host: "{{ groups['kube_node'][-1] }}" }
+- { name: jinmoo, host: "{{ groups['kube_node'][-2] }}" }
