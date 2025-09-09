@@ -18,6 +18,13 @@ users:
   sudo: true
   ssh_public_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHg4c6RHHlEeeAZhRWzo/ggsmBbsXx+NWGDGbHIqRxCY jinmoo_seok@NO-202506-005.local
   ldap_username: jinmoo_seok
+- name: jaebin
+  uid: 2054
+  groups: [ sw_dev ]
+  admin: true
+  sudo: true
+  ssh_public_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHCYiln3M18HgbsYlrP4/t3cBb+A/Vrpe+mKGvh/due5 jaebin@NO-202509-002.local
+  ldap_username: jaebin
 - name: jiwoo
   uid: 2038
   groups: [ sw_dev ]
