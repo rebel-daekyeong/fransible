@@ -1,0 +1,122 @@
+# Run `docker compose build`
+services:
+  # full:
+  #   image: ${REPO}:${TAG}
+  #   build:
+  #     context: /
+  #     dockerfile: /mnt/shared_data/users/daekyeong/nas_data/src/karv/src/Dockerfile
+  #     target: full
+  #     args:
+  #     - PLATFORM=${PLATFORM}
+  #     - WORKDIR=${WORKDIR}
+  #     - ATOM_DRIVER_VERSION=${ATOM_DRIVER_VERSION}
+  #     - RBLN_CCL_VERSION=${RBLN_CCL_VERSION}
+  #     - BCM_DRIVER_VERSION=${BCM_DRIVER_VERSION}
+  #     - BCM_LIBBNXT_RE_VERSION=${BCM_LIBBNXT_RE_VERSION}
+  #     - LLVM_VERSION=${LLVM_VERSION}
+  #     - OPTIMUM_RBLN_VERSION=${OPTIMUM_RBLN_VERSION}
+  #     - RAY_VERSION=${RAY_VERSION}
+  #     - REBEL_COMPILER_VERSION=${REBEL_COMPILER_VERSION}
+  #     - TORCHVISION_VERSION=${TORCHVISION_VERSION}
+  #     - TORCH_VERSION=${TORCH_VERSION}
+  #     - VLLM_RBLN_VERSION=${VLLM_RBLN_VERSION}
+  #     - REBEL_DEPENDENCY_DIR=${REBEL_DEPENDENCY_DIR}
+  #     secrets:
+  #     - REBEL_PYPI_USERNAME
+  #     - REBEL_PYPI_PASSWORD
+  #     - REBEL_R18S_PYPI_USERNAME
+  #     - REBEL_R18S_PYPI_PASSWORD
+
+  # app:
+  #   image: ${REPO}-app:${TAG}
+  #   build:
+  #     context: /
+  #     dockerfile: /mnt/shared_data/users/daekyeong/nas_data/src/karv/src/Dockerfile
+  #     target: app
+  #     args:
+  #     - PLATFORM=${PLATFORM}
+  #     - WORKDIR=${WORKDIR}
+  #     - ATOM_DRIVER_VERSION=${ATOM_DRIVER_VERSION}
+  #     - RBLN_CCL_VERSION=${RBLN_CCL_VERSION}
+  #     - BCM_DRIVER_VERSION=${BCM_DRIVER_VERSION}
+  #     - BCM_LIBBNXT_RE_VERSION=${BCM_LIBBNXT_RE_VERSION}
+  #     - OPTIMUM_RBLN_VERSION=${OPTIMUM_RBLN_VERSION}
+  #     - RAY_VERSION=${RAY_VERSION}
+  #     - REBEL_COMPILER_VERSION=${REBEL_COMPILER_VERSION}
+  #     - TORCHVISION_VERSION=${TORCHVISION_VERSION}
+  #     - TORCH_VERSION=${TORCH_VERSION}
+  #     - VLLM_RBLN_VERSION=${VLLM_RBLN_VERSION}
+  #     secrets:
+  #     - REBEL_PYPI_USERNAME
+  #     - REBEL_PYPI_PASSWORD
+  #     - REBEL_R18S_PYPI_USERNAME
+  #     - REBEL_R18S_PYPI_PASSWORD
+
+  build:
+    image: ${REPO}-build:${TAG}
+    build:
+      context: /
+      dockerfile: /mnt/shared_data/users/daekyeong/nas_data/src/karv/src/Dockerfile
+      target: build
+      args:
+      - PLATFORM=${PLATFORM}
+      - WORKDIR=${WORKDIR}
+      - ATOM_DRIVER_VERSION=${ATOM_DRIVER_VERSION}
+      - RBLN_CCL_VERSION=${RBLN_CCL_VERSION}
+      - BCM_DRIVER_VERSION=${BCM_DRIVER_VERSION}
+      - BCM_LIBBNXT_RE_VERSION=${BCM_LIBBNXT_RE_VERSION}
+      - LLVM_VERSION=${LLVM_VERSION}
+      - REBEL_DEPENDENCY_DIR=${REBEL_DEPENDENCY_DIR}
+      secrets:
+      - REBEL_PYPI_USERNAME
+      - REBEL_PYPI_PASSWORD
+      - REBEL_R18S_PYPI_USERNAME
+      - REBEL_R18S_PYPI_PASSWORD
+
+  python:
+    image: ${REPO}-python:${TAG}
+    build:
+      context: /
+      dockerfile: /mnt/shared_data/users/daekyeong/nas_data/src/karv/src/Dockerfile
+      target: python
+      args:
+      - PLATFORM=${PLATFORM}
+      - WORKDIR=${WORKDIR}
+      - ATOM_DRIVER_VERSION=${ATOM_DRIVER_VERSION}
+      - RBLN_CCL_VERSION=${RBLN_CCL_VERSION}
+      - BCM_DRIVER_VERSION=${BCM_DRIVER_VERSION}
+      - BCM_LIBBNXT_RE_VERSION=${BCM_LIBBNXT_RE_VERSION}
+      secrets:
+      - REBEL_PYPI_USERNAME
+      - REBEL_PYPI_PASSWORD
+      - REBEL_R18S_PYPI_USERNAME
+      - REBEL_R18S_PYPI_PASSWORD
+
+  driver:
+    image: ${REPO}-driver:${TAG}
+    build:
+      context: /
+      dockerfile: /mnt/shared_data/users/daekyeong/nas_data/src/karv/src/Dockerfile
+      target: driver
+      args:
+      - PLATFORM=${PLATFORM}
+      - WORKDIR=${WORKDIR}
+      - ATOM_DRIVER_VERSION=${ATOM_DRIVER_VERSION}
+      - RBLN_CCL_VERSION=${RBLN_CCL_VERSION}
+      - BCM_DRIVER_VERSION=${BCM_DRIVER_VERSION}
+      - BCM_LIBBNXT_RE_VERSION=${BCM_LIBBNXT_RE_VERSION}
+      secrets:
+      - REBEL_PYPI_USERNAME
+      - REBEL_PYPI_PASSWORD
+      - REBEL_R18S_PYPI_USERNAME
+      - REBEL_R18S_PYPI_PASSWORD
+
+secrets:
+  REBEL_PYPI_USERNAME:
+    environment: "REBEL_PYPI_USERNAME"
+  REBEL_PYPI_PASSWORD:
+    environment: "REBEL_PYPI_PASSWORD"
+  REBEL_R18S_PYPI_USERNAME:
+    environment: "REBEL_R18S_PYPI_USERNAME"
+  REBEL_R18S_PYPI_PASSWORD:
+    environment: "REBEL_R18S_PYPI_PASSWORD"
