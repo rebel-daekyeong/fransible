@@ -1,10 +1,11 @@
 # Run `docker compose build`
+
 services:
   # full:
   #   image: ${REPO}:${TAG}
   #   build:
   #     context: /
-  #     dockerfile: /mnt/shared_data/users/daekyeong/nas_data/src/karv/src/Dockerfile
+  #     dockerfile: /mnt/shared_data/users/daekyeong/nas_data/src/fransible/docker/Dockerfile
   #     target: full
   #     args:
   #     - PLATFORM=${PLATFORM}
@@ -21,6 +22,8 @@ services:
   #     - TORCH_VERSION=${TORCH_VERSION}
   #     - VLLM_RBLN_VERSION=${VLLM_RBLN_VERSION}
   #     - REBEL_DEPENDENCY_DIR=${REBEL_DEPENDENCY_DIR}
+  #     - ATOM_DRIVER_PACAKGE_DIR=${ATOM_DRIVER_PACAKGE_DIR}
+  #     - RBLN_CCL_PACAKGE_DIR=${RBLN_CCL_PACAKGE_DIR}
   #     secrets:
   #     - REBEL_PYPI_USERNAME
   #     - REBEL_PYPI_PASSWORD
@@ -31,7 +34,7 @@ services:
   #   image: ${REPO}-app:${TAG}
   #   build:
   #     context: /
-  #     dockerfile: /mnt/shared_data/users/daekyeong/nas_data/src/karv/src/Dockerfile
+  #     dockerfile: /mnt/shared_data/users/daekyeong/nas_data/src/fransible/docker/Dockerfile
   #     target: app
   #     args:
   #     - PLATFORM=${PLATFORM}
@@ -46,6 +49,8 @@ services:
   #     - TORCHVISION_VERSION=${TORCHVISION_VERSION}
   #     - TORCH_VERSION=${TORCH_VERSION}
   #     - VLLM_RBLN_VERSION=${VLLM_RBLN_VERSION}
+  #     - ATOM_DRIVER_PACAKGE_DIR=${ATOM_DRIVER_PACAKGE_DIR}
+  #     - RBLN_CCL_PACAKGE_DIR=${RBLN_CCL_PACAKGE_DIR}
   #     secrets:
   #     - REBEL_PYPI_USERNAME
   #     - REBEL_PYPI_PASSWORD
@@ -56,7 +61,7 @@ services:
     image: ${REPO}-build:${TAG}
     build:
       context: /
-      dockerfile: /mnt/shared_data/users/daekyeong/nas_data/src/karv/src/Dockerfile
+      dockerfile: /mnt/shared_data/users/daekyeong/nas_data/src/fransible/docker/Dockerfile
       target: build
       args:
       - PLATFORM=${PLATFORM}
@@ -67,6 +72,8 @@ services:
       - BCM_LIBBNXT_RE_VERSION=${BCM_LIBBNXT_RE_VERSION}
       - LLVM_VERSION=${LLVM_VERSION}
       - REBEL_DEPENDENCY_DIR=${REBEL_DEPENDENCY_DIR}
+      - ATOM_DRIVER_PACAKGE_DIR=${ATOM_DRIVER_PACAKGE_DIR}
+      - RBLN_CCL_PACAKGE_DIR=${RBLN_CCL_PACAKGE_DIR}
       secrets:
       - REBEL_PYPI_USERNAME
       - REBEL_PYPI_PASSWORD
@@ -77,7 +84,7 @@ services:
     image: ${REPO}-python:${TAG}
     build:
       context: /
-      dockerfile: /mnt/shared_data/users/daekyeong/nas_data/src/karv/src/Dockerfile
+      dockerfile: /mnt/shared_data/users/daekyeong/nas_data/src/fransible/docker/Dockerfile
       target: python
       args:
       - PLATFORM=${PLATFORM}
@@ -86,6 +93,8 @@ services:
       - RBLN_CCL_VERSION=${RBLN_CCL_VERSION}
       - BCM_DRIVER_VERSION=${BCM_DRIVER_VERSION}
       - BCM_LIBBNXT_RE_VERSION=${BCM_LIBBNXT_RE_VERSION}
+      - ATOM_DRIVER_PACAKGE_DIR=${ATOM_DRIVER_PACAKGE_DIR}
+      - RBLN_CCL_PACAKGE_DIR=${RBLN_CCL_PACAKGE_DIR}
       secrets:
       - REBEL_PYPI_USERNAME
       - REBEL_PYPI_PASSWORD
@@ -96,7 +105,7 @@ services:
     image: ${REPO}-driver:${TAG}
     build:
       context: /
-      dockerfile: /mnt/shared_data/users/daekyeong/nas_data/src/karv/src/Dockerfile
+      dockerfile: /mnt/shared_data/users/daekyeong/nas_data/src/fransible/docker/Dockerfile
       target: driver
       args:
       - PLATFORM=${PLATFORM}
@@ -105,6 +114,8 @@ services:
       - RBLN_CCL_VERSION=${RBLN_CCL_VERSION}
       - BCM_DRIVER_VERSION=${BCM_DRIVER_VERSION}
       - BCM_LIBBNXT_RE_VERSION=${BCM_LIBBNXT_RE_VERSION}
+      - ATOM_DRIVER_PACAKGE_DIR=${ATOM_DRIVER_PACAKGE_DIR}
+      - RBLN_CCL_PACAKGE_DIR=${RBLN_CCL_PACAKGE_DIR}
       secrets:
       - REBEL_PYPI_USERNAME
       - REBEL_PYPI_PASSWORD

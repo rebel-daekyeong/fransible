@@ -25,6 +25,8 @@ ARG TORCHVISION_VERSION=0.21.0+cpu
 ARG TORCH_VERSION=2.6.0+cpu
 ARG VLLM_RBLN_VERSION=0.8.0rc0
 ARG REBEL_DEPENDENCY_DIR=/mnt/shared_data/users/daekyeong/nas_data/rebel_dependency
+ARG ATOM_DRIVER_PACAKGE_DIR=/mnt/shared_data/users/daekyeong/nas_data/pkg
+ARG RBLN_CCL_PACAKGE_DIR=/mnt/shared_data/users/daekyeong/nas_data/pkg
 
 LABEL ATOM_DRIVER_VERSION="$ATOM_DRIVER_VERSION"
 LABEL RBLN_CCL_VERSION="$RBLN_CCL_VERSION"
@@ -38,6 +40,8 @@ LABEL TORCHVISION_VERSION="$TORCHVISION_VERSION"
 LABEL TORCH_VERSION="$TORCH_VERSION"
 LABEL VLLM_RBLN_VERSION="$VLLM_RBLN_VERSION"
 LABEL REBEL_DEPENDENCY_DIR="$REBEL_DEPENDENCY_DIR"
+LABEL ATOM_DRIVER_PACAKGE_DIR="$ATOM_DRIVER_PACAKGE_DIR"
+LABEL RBLN_CCL_PACAKGE_DIR="$RBLN_CCL_PACAKGE_DIR"
 
 
 RUN sed -i 's/archive.ubuntu.com/mirror.kakao.com/g; s/kr.archive.ubuntu.com/mirror.kakao.com/g' /etc/apt/sources.list && \
@@ -79,13 +83,11 @@ RUN wget "https://docs.broadcom.com/docs-and-downloads/ethernet-network-adapters
 FROM base AS atom
 
 ARG ATOM_DRIVER_PACKAGE="atom_internal_release_${ATOM_DRIVER_VERSION}_amd64.deb"
-ARG ATOM_DRIVER_PACAKGE_DIR=/mnt/shared_data/users/daekyeong/nas_data/pkg
 COPY "$ATOM_DRIVER_PACAKGE_DIR/$ATOM_DRIVER_PACKAGE" "/atom/$ATOM_DRIVER_PACKAGE"
 RUN dpkg-deb --vextract "/atom/$ATOM_DRIVER_PACKAGE" /atom/ && rm -f "/atom/$ATOM_DRIVER_PACKAGE"
 
 ARG RBLN_CCL_PACKAGE="librbln-ccl2_${RBLN_CCL_VERSION}_amd64.deb"
 ARG RBLN_CCL_DEV_PACKAGE="librbln-ccl-dev_${RBLN_CCL_VERSION}_amd64.deb"
-ARG RBLN_CCL_PACAKGE_DIR=/mnt/shared_data/users/daekyeong/nas_data/pkg
 COPY "$RBLN_CCL_PACAKGE_DIR/$RBLN_CCL_PACKAGE" "/atom/$RBLN_CCL_PACKAGE"
 COPY "$RBLN_CCL_PACAKGE_DIR/$RBLN_CCL_DEV_PACKAGE" "/atom/$RBLN_CCL_DEV_PACKAGE"
 RUN dpkg-deb --vextract "/atom/$RBLN_CCL_PACKAGE" /atom/ && rm -f "/atom/$RBLN_CCL_PACKAGE"
@@ -100,7 +102,14 @@ CMD ["/bin/bash"]
 
 RUN PYTHONUNBUFFERED=1 DEBIAN_FRONTEND=noninteractive apt update && \
   apt install -y \
-    tini libibverbs-dev librdmacm1 && \
+    tini \
+    libbz2-1.0 \
+    libcmocka0 \
+    libdrm2 \
+    libibverbs1 \
+    librdmacm1 \
+    rdma-core \
+    zlib1g && \
   apt clean && \
   rm -rf /var/lib/apt/lists/*
 
@@ -113,16 +122,6 @@ COPY --from=atom /atom/etc/ /etc/
 COPY --from=atom /atom/opt/ /opt/
 COPY --from=atom /atom/usr/ /usr/
 COPY --from=atom /atom/lib/ /usr/
-
-RUN PYTHONUNBUFFERED=1 DEBIAN_FRONTEND=noninteractive apt update && \
-  apt install -y \
-    libbz2-dev \
-    libcmocka-dev \
-    libdrm-dev \
-    rdma-core \
-    zlib1g-dev && \
-  apt clean && \
-  rm -rf /var/lib/apt/lists/*
 
 
 FROM driver AS python
@@ -166,6 +165,21 @@ RUN --mount=type=secret,id=REBEL_PYPI_USERNAME,env=REBEL_PYPI_USERNAME \
 
 
 FROM python AS build
+
+RUN PYTHONUNBUFFERED=1 DEBIAN_FRONTEND=noninteractive apt update && \
+  apt install -y \
+    build-essential \
+    ccache \
+    libbz2-dev \
+    libcmocka-dev \
+    libnuma-dev \
+    libdrm-dev \
+    libibverbs-dev \
+    librdmacm-dev \
+    rdma-core \
+    zlib1g-dev && \
+  apt clean && \
+  rm -rf /var/lib/apt/lists/*
 
 COPY "$REBEL_DEPENDENCY_DIR/llvm-$LLVM_VERSION/" /tools/lib/rebel_dependency/llvm/
 COPY "$REBEL_DEPENDENCY_DIR/GCC-12.1.0/" /tools/lib/rebel_dependency/GCC-12.1.0/
