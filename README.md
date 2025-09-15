@@ -206,10 +206,9 @@ ansible-playbook -i inventory/inventory.ini -i inventory/r18s.ini \
 ```
 
 ### 테스트 실행
-
 ```bash
 ansible-playbook -i inventory/inventory.ini -i inventory/r18s.ini \
-  -e ansible_user=<ssh_user> playbooks/test-playbook.yaml -vv
+  -e ansible_user=<ssh_user> playbooks/tests/test-playbook.yaml -vv
 ```
 
 ### 특정 태그만 실행
