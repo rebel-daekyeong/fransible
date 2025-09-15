@@ -51,6 +51,7 @@ users:
 - name: jindol21
   uid: 2042
   groups: [ sw_dev ]
+  ssh_public_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPzH+JBMJhQT/YNbIdI1Fkx19B3q3aOHJkRn/hpYTd/e jindol21@rebellions.ai
   ldap_username: jindol21
 - name: jongwonlee
   uid: 2031
