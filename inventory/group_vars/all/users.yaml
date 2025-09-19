@@ -38,7 +38,7 @@ users:
 - name: jaehwang.jung
   uid: 2049
   groups: [ sw_dev ]
-  ssh_public_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJfSwBnbM1ojQ1pN7Kf89QhgVso0Able5zrVZOysSzYG jaehwang.jung@NO-202503-002
+  ssh_public_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDsLioXZtkvD9jBzpSTp/QuMUC38EGsaPMpPw8UzWPkq jjh@NO-202503-002
   ldap_username: jaehwang.jung
 - name: chanheo
   uid: 2040
