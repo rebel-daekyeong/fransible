@@ -1,11 +1,11 @@
 ################################################################################
 # export REBEL_PYPI_USERNAME=XXXXXXXX REBEL_PYPI_PASSWORD=XXXXXXXX REBEL_R18S_PYPI_USERNAME=XXXXXXXX REBEL_R18S_PYPI_PASSWORD=XXXXXXXX
-# export REPO=docker.e2e.sw2.rebellions.in/rebellions-sw/devpack TAG=r18s1
-# docker build -t        "$REPO:$TAG" --target full   --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
-# docker build -t    "$REPO-app:$TAG" --target app    --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
-# docker build -t  "$REPO-build:$TAG" --target build  --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
-# docker build -t "$REPO-python:$TAG" --target python --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
-# docker build -t "$REPO-driver:$TAG" --target driver --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
+# export REPO=docker.e2e.sw2.rebellions.in/rebellions-sw/devpack TAG=r18s6
+# docker build -t        "$REPO:$TAG"     --target full      --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
+# docker build -t    "$REPO-app:$TAG"     --target app       --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
+# docker build -t  "$REPO-toolchain:$TAG" --target toolchain --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
+# docker build -t "$REPO-python:$TAG"     --target python    --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
+# docker build -t "$REPO-driver:$TAG"     --target driver    --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
 
 ARG PLATFORM=linux/amd64
 FROM --platform=$PLATFORM ubuntu:22.04 AS base
@@ -164,7 +164,7 @@ RUN --mount=type=secret,id=REBEL_PYPI_USERNAME,env=REBEL_PYPI_USERNAME \
   poetry sync --no-root --no-cache
 
 
-FROM python AS build
+FROM python AS toolchain
 
 RUN PYTHONUNBUFFERED=1 DEBIAN_FRONTEND=noninteractive apt update && \
   apt install -y \
@@ -188,4 +188,4 @@ COPY "$REBEL_DEPENDENCY_DIR/gtest/" /tools/lib/rebel_dependency/gtest/
 
 FROM app AS full
 
-COPY --from=build /tools/lib/ /tools/lib/
+COPY --from=toolchain /tools/lib/ /tools/lib/

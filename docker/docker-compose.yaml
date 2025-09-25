@@ -57,12 +57,12 @@ services:
   #     - REBEL_R18S_PYPI_USERNAME
   #     - REBEL_R18S_PYPI_PASSWORD
 
-  build:
-    image: ${REPO}-build:${TAG}
+  toolchain:
+    image: ${REPO}-toolchain:${TAG}
     build:
       context: /
       dockerfile: /mnt/shared_data/users/daekyeong/nas_data/src/fransible/docker/Dockerfile
-      target: build
+      target: toolchain
       args:
       - PLATFORM=${PLATFORM}
       - WORKDIR=${WORKDIR}
