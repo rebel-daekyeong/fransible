@@ -375,3 +375,7 @@ kubeadm_patches: []
 
 # Set to true to remove the role binding to anonymous users created by kubeadm
 remove_anonymous_access: false
+
+kube_version: 1.33.4
+kubelet_fail_swap_on: false
+kubelet_swap_behavior: UnlimitedSwap
