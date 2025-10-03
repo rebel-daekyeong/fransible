@@ -77,7 +77,3 @@ users:
   uid: 2032
   groups: [ sw_dev ]
   ldap_username: youngkyu.choi
-
-local_pvs:
-- { name: daekyeong, host: "{{ groups['kube_node'][-1] }}" }
-- { name: jinmoo, host: "{{ groups['kube_node'][-2] }}" }

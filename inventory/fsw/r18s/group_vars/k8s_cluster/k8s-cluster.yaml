@@ -1,0 +1,13 @@
+---
+kube_proxy_strict_arp: true
+kubeconfig_localhost: true
+supplementary_addresses_in_ssl_keys:
+- 127.0.0.1
+- 10.233.0.1
+- "{{ bastion_host | default(null) }}"
+- "{{ domain | default(null) }}"
+- "{{ k8s_api_domain | default(null) }}"
+kube_version: 1.33.4
+kubelet_fail_swap_on: false
+# kubelet_swap_behavior: UnlimitedSwap
+kubelet_swap_behavior: LimitedSwap
