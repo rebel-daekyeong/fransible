@@ -1,0 +1,33 @@
+---
+domain: e2e.sw2.rebellions.in
+k8s_api_domain: "k8s-api.{{ domain }}"
+maintainer: daekyeong.kim@rebellions.ai
+
+route53_region: us-east-1
+route53_hosted_zone_id: XXXXXXXXXXXXXXXXXXXX
+aws_access_key: XXXXXXXXXXXXXXXXXXXX
+aws_secret_key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+keycloak_url: https://keycloak.rebellions.ai
+keycloak_realm: rebellions
+
+nfs_default: 192.168.49.45
+nfs_default_path: /shared_data/users
+nfs_shared: "{{ nfs_default }}"
+nfs_shared_path: /shared_data/groups/sw_dev
+nfs_shared_cache_path: /shared_data/.cache
+nfs_shared_ci_path: /shared_data/.github
+
+vip_begin: 192.168.49.117
+vip_end: "{{ vip_begin }}"
+l2_advertisement_interface: enp3s0
+sriov_subnet: 10.10.20.128/25
+
+github_token: ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+ldap_bind_host: ldap.rebellions.in
+ldap_bind_password: xxxxxxxx
+
+local_pvs:
+- { name: daekyeong, host: "{{ groups['kube_node'][-1] }}" }
+- { name: jinmoo, host: "{{ groups['kube_node'][-2] }}" }

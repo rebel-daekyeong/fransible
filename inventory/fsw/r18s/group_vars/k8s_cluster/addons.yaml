@@ -1,0 +1,29 @@
+---
+dashboard_enabled: true
+helm_enabled: true
+registry_enabled: true
+metrics_server_enabled: true
+local_path_provisioner_enabled: true
+local_volume_provisioner_enabled: true
+metallb_enabled: true
+metallb_config:
+  speaker:
+    nodeselector:
+      kubernetes.io/os: "linux"
+    tolerations:
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Equal"
+      value: ""
+      effect: "NoSchedule"
+  controller:
+    nodeselector:
+      kubernetes.io/os: "linux"
+    tolerations:
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Equal"
+      value: ""
+      effect: "NoSchedule"
+  address_pools:
+    primary:
+      ip_range: ["{{ vip_begin }}-{{ vip_end }}"]
+      auto_assign: true

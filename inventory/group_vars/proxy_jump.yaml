@@ -1,0 +1,2 @@
+---
+ansible_ssh_common_args: '-o ProxyJump={{ bastion_user | default(ansible_user) }}@{{ bastion_host }}:{{ bastion_port | default(22) }}'
