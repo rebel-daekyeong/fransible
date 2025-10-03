@@ -25,8 +25,8 @@ ARG TORCHVISION_VERSION=0.21.0+cpu
 ARG TORCH_VERSION=2.6.0+cpu
 ARG VLLM_RBLN_VERSION=0.8.0rc0
 ARG REBEL_DEPENDENCY_DIR=/mnt/shared_data/users/daekyeong/nas_data/rebel_dependency
-ARG ATOM_DRIVER_PACAKGE_DIR=/mnt/shared_data/users/daekyeong/nas_data/pkg
-ARG RBLN_CCL_PACAKGE_DIR=/mnt/shared_data/users/daekyeong/nas_data/pkg
+ARG ATOM_DRIVER_PACKAGE_DIR=/mnt/shared_data/users/daekyeong/nas_data/pkg
+ARG RBLN_CCL_PACKAGE_DIR=/mnt/shared_data/users/daekyeong/nas_data/pkg
 
 LABEL ATOM_DRIVER_VERSION="$ATOM_DRIVER_VERSION"
 LABEL RBLN_CCL_VERSION="$RBLN_CCL_VERSION"
@@ -40,8 +40,8 @@ LABEL TORCHVISION_VERSION="$TORCHVISION_VERSION"
 LABEL TORCH_VERSION="$TORCH_VERSION"
 LABEL VLLM_RBLN_VERSION="$VLLM_RBLN_VERSION"
 LABEL REBEL_DEPENDENCY_DIR="$REBEL_DEPENDENCY_DIR"
-LABEL ATOM_DRIVER_PACAKGE_DIR="$ATOM_DRIVER_PACAKGE_DIR"
-LABEL RBLN_CCL_PACAKGE_DIR="$RBLN_CCL_PACAKGE_DIR"
+LABEL ATOM_DRIVER_PACKAGE_DIR="$ATOM_DRIVER_PACKAGE_DIR"
+LABEL RBLN_CCL_PACKAGE_DIR="$RBLN_CCL_PACKAGE_DIR"
 
 
 RUN sed -i 's/archive.ubuntu.com/mirror.kakao.com/g; s/kr.archive.ubuntu.com/mirror.kakao.com/g' /etc/apt/sources.list && \
@@ -83,13 +83,13 @@ RUN wget "https://docs.broadcom.com/docs-and-downloads/ethernet-network-adapters
 FROM base AS atom
 
 ARG ATOM_DRIVER_PACKAGE="atom_internal_release_${ATOM_DRIVER_VERSION}_amd64.deb"
-COPY "$ATOM_DRIVER_PACAKGE_DIR/$ATOM_DRIVER_PACKAGE" "/atom/$ATOM_DRIVER_PACKAGE"
+COPY "$ATOM_DRIVER_PACKAGE_DIR/$ATOM_DRIVER_PACKAGE" "/atom/$ATOM_DRIVER_PACKAGE"
 RUN dpkg-deb --vextract "/atom/$ATOM_DRIVER_PACKAGE" /atom/ && rm -f "/atom/$ATOM_DRIVER_PACKAGE"
 
 ARG RBLN_CCL_PACKAGE="librbln-ccl2_${RBLN_CCL_VERSION}_amd64.deb"
 ARG RBLN_CCL_DEV_PACKAGE="librbln-ccl-dev_${RBLN_CCL_VERSION}_amd64.deb"
-COPY "$RBLN_CCL_PACAKGE_DIR/$RBLN_CCL_PACKAGE" "/atom/$RBLN_CCL_PACKAGE"
-COPY "$RBLN_CCL_PACAKGE_DIR/$RBLN_CCL_DEV_PACKAGE" "/atom/$RBLN_CCL_DEV_PACKAGE"
+COPY "$RBLN_CCL_PACKAGE_DIR/$RBLN_CCL_PACKAGE" "/atom/$RBLN_CCL_PACKAGE"
+COPY "$RBLN_CCL_PACKAGE_DIR/$RBLN_CCL_DEV_PACKAGE" "/atom/$RBLN_CCL_DEV_PACKAGE"
 RUN dpkg-deb --vextract "/atom/$RBLN_CCL_PACKAGE" /atom/ && rm -f "/atom/$RBLN_CCL_PACKAGE"
 RUN dpkg-deb --vextract "/atom/$RBLN_CCL_DEV_PACKAGE" /atom/ && rm -f "/atom/$RBLN_CCL_DEV_PACKAGE"
 
