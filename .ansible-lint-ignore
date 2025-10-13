@@ -1,0 +1,2 @@
+# This file contains ignores rule violations for ansible-lint
+inventory/group_vars/k8s_cluster/k8s-cluster.yml jinja[spacing]

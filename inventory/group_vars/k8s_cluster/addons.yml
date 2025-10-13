@@ -156,22 +156,22 @@ metallb_config:
     nodeselector:
       kubernetes.io/os: "linux"
     tolerations:
-      - key: "node-role.kubernetes.io/control-plane"
-        operator: "Equal"
-        value: ""
-        effect: "NoSchedule"
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Equal"
+      value: ""
+      effect: "NoSchedule"
   controller:
     nodeselector:
       kubernetes.io/os: "linux"
     tolerations:
-      - key: "node-role.kubernetes.io/control-plane"
-        operator: "Equal"
-        value: ""
-        effect: "NoSchedule"
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Equal"
+      value: ""
+      effect: "NoSchedule"
   address_pools:
     primary:
       ip_range:
-        - "{{ vip_begin }}-{{ vip_end }}"
+      - "{{ vip_begin }}-{{ vip_end }}"
       auto_assign: true
 #     pool1:
 #       ip_range:
@@ -240,6 +240,7 @@ kube_vip_enabled: false
 
 # Node Feature Discovery
 node_feature_discovery_enabled: false
+
 # node_feature_discovery_gc_sa_name: node-feature-discovery
 # node_feature_discovery_gc_sa_create: false
 # node_feature_discovery_worker_sa_name: node-feature-discovery

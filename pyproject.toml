@@ -3,19 +3,27 @@ name = "fransible"
 version = "0.1.0"
 description = "Ansible for Framework Software of Rebellions"
 authors = [
-    {name = "Daekyeong Kim",email = "daekyeong.kim@rebellions.ai"}
+  {name = "Daekyeong Kim",email = "daekyeong.kim@rebellions.ai"}
 ]
 readme = "README.md"
 requires-python = ">=3.10,<3.13"
 dependencies = [
-    "ansible (>=10,<11)",
-    "ansible-dev-tools (>=25.8.3,<26.0.0)",
-    "ansible-lint (>=25.8.1,<26.0.0)",
-    "jmespath (>=1.0.1,<2.0.0)",
-    "kubernetes (>=33.1.0,<34.0.0)",
-    "netaddr (>=1.3.0,<2.0.0)",
-    "poetry (==2.0.1)",
-    "toml (>=0.10.2,<0.11.0)",
+  "ansible (>=10,<11)",
+  "ansible-core (>=2.16.4,<2.18)",
+  "ansible-dev-tools (>=25.8.3,<26.0.0)",
+  "ansible-lint (>=25.1.1,<26.0.0)",
+  "distlib (>=0.4.0,<0.5.0)",
+  "jinja2 (>=3.1.6,<4.0.0)",
+  "jmespath (==1.0.1)",
+  "kubernetes (>=33.1.0,<34.0.0)",
+  "netaddr (==1.3.0)",
+  "pathlib (>=1.0.1,<2.0.0)",
+  "poetry (==2.0.1)",
+  "pre-commit (>=4.3.0,<5.0.0)",
+  "pyaml (>=25.7.0,<26.0.0)",
+  "ruamel-yaml (>=0.18.15,<0.19.0)",
+  "toml (>=0.10.2,<0.11.0)",
+  "yamllint (>=1.35.0,<2.0.0)",
 ]
 
 
