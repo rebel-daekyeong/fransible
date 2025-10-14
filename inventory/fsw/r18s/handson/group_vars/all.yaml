@@ -10,8 +10,6 @@ nfs_default: "{{ hostvars[groups['kube_node'][-1]]['ansible_host'] }}"
 nfs_default_path: /brick/users
 nfs_shared: "{{ hostvars[groups['kube_node'][0]]['ansible_host'] }}"
 nfs_shared_path: /brick/shared
-nfs_shared_cache_path: /brick/shared/.cache
-nfs_shared_ci_path: /brick/shared/.github
 
 vip_begin: null
 vip_end: null
