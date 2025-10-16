@@ -1,0 +1,12 @@
+---
+domain: null
+
+route53_region: null
+route53_hosted_zone_id: null
+aws_access_key: null
+aws_secret_key: null
+
+vip_begin: null
+vip_end: null
+l2_advertisement_interface: null
+sriov_subnet: 10.10.24.128/25
