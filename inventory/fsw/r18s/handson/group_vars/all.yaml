@@ -6,7 +6,21 @@ route53_hosted_zone_id: null
 aws_access_key: null
 aws_secret_key: null
 
+nfs_default: "{{ hostvars[groups['kube_node'][-1]]['ansible_host'] }}"
+nfs_default_path: /brick/users
+nfs_shared: "{{ hostvars[groups['kube_node'][0]]['ansible_host'] }}"
+nfs_shared_path: /brick/shared
+nfs_shared_cache_path: /brick/shared/.cache
+nfs_shared_ci_path: /brick/shared/.github
+
 vip_begin: null
 vip_end: null
 l2_advertisement_interface: null
-sriov_subnet: 10.10.24.128/25
+sriov_subnet: null
+
+github_token: null
+
+ldap_bind_host: null
+ldap_bind_password: null
+
+grafana_ldap_enabled: false
