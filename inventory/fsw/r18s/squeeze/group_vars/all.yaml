@@ -9,7 +9,7 @@ aws_secret_key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 keycloak_url: null
 keycloak_realm: null
 
-nfs_default: "{{ hostvars[groups['kube_node'][1]]['ansible_host'] }}"
+nfs_default: "{{ hostvars[groups['kube_node'][-1]]['ansible_host'] }}"
 nfs_default_path: /brick/users
 nfs_shared: "{{ hostvars[groups['kube_node'][0]]['ansible_host'] }}"
 nfs_shared_path: /brick/shared
@@ -21,9 +21,11 @@ vip_end: 172.16.20.219
 l2_advertisement_interface: ens3
 sriov_subnet: 10.10.21.0/24
 
-harbor_builtin_image_repo: "docker.e2e-sq.sw.rbln.ai/{{ harbor_default_project_name }}/devpack"
-
 github_token: null
 
 ldap_bind_host: null
 ldap_bind_password: null
+
+grafana_ldap_enabled: false
+
+harbor_builtin_image_repo: "docker.e2e-sq.sw.rbln.ai/{{ harbor_default_project_name }}/devpack"
