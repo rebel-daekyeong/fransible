@@ -152,19 +152,7 @@ ARG PYPI_REPO_URL
 RUN --mount=type=secret,id=REBEL_PYPI_USERNAME,env=REBEL_PYPI_USERNAME \
     --mount=type=secret,id=REBEL_PYPI_PASSWORD,env=REBEL_PYPI_PASSWORD \
     python3 -m venv $WORKDIR/.venv && . $WORKDIR/.venv/bin/activate \
-    #&& pip install poetry==2.0.1 --no-cache  \
-    #&& poetry init -n --python '>=3.10,<3.13' \
-    #&& poetry source add rbln-r18s --priority supplemental -- https://pypi.e2e.sw2.rebellions.in/simple \
-    #&& poetry source add rbln --priority supplemental -- https://pypi.rebellions.in/simple \
-    #&& poetry source add torch --priority supplemental -- https://download.pytorch.org/whl/cpu \
-    #&& poetry config http-basic.rbln-r18s "$REBEL_R18S_PYPI_USERNAME" "$REBEL_R18S_PYPI_PASSWORD" \
-    #&& poetry config http-basic.rbln "$REBEL_PYPI_USERNAME" "$REBEL_PYPI_PASSWORD" \
-    #&& poetry config virtualenvs.create false \
-    #&& poetry sync --no-root --no-cache \ 
-    && pip install --no-cache torch==2.7.0+cpu -i https://download.pytorch.org/whl/cpu \
-    && pip install --no-cache torch-rbln==0.1.1 --extra-index-url "$PYPI_REPO_URL" \
-
-RUN pip install --no-cache build \
+    && pip install --no-cache build \
     && git clone https://github.com/rebellions-sw/vllm-rbln.git \
     && cd vllm-rbln \
     && git checkout main \
