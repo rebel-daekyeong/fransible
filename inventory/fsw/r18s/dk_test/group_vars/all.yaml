@@ -19,7 +19,7 @@ nfs_shared_ci_path: /brick/shared/.github
 
 vip_begin: 172.16.20.210
 vip_end: 172.16.20.219
-l2_advertisement_interface: ens3
+l2_advertisement_interface: enp1s0
 sriov_subnet: 10.10.22.0/24
 
 harbor_builtin_image_repo: "docker.e2e-sq.sw.rbln.ai/{{ harbor_default_project_name }}/devpack"
