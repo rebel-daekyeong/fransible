@@ -77,3 +77,7 @@ users:
   uid: 2032
   groups: [ sw_dev ]
   ldap_username: youngkyu.choi
+- name: sjlee
+  uid: 2055
+  groups: [ sw_dev ]
+  ldap_username: sjlee
