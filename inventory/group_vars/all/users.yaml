@@ -56,6 +56,7 @@ users:
 - name: jongwonlee
   uid: 2031
   groups: [ sw_dev ]
+  ssh_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD3TJ+/3uCMjKSqzCg/+GE7eMws9LIwsZb5O9N9qdeYH6swr0krU3Hkfban0EMW1S8RIbgbZrZnfQ+prp6PvNxgk270Yp/dic2eNwwQMWvsUJPYZ3JaA+cKM2CR4UME6HC4/3nWyYAqbf7kHKWx38o1gzrx5rU1FiG9DB0NxLu9Mpe4MEj3iLGsz2DVeCPO3vrD5i1bzaLzaRTyjHO6wHjG8+ykjQgRYZ1GauKF0Qb5tog3Pbars1wTUJNk/LJFY2/wpxZVDhQuEAq6RnbS1gksk/Gpb4+gxpBtpJnsPba1lF7iZW8o5bUMWTjZX+Sx8iqhZKwJ5zf91ehCBsoWxFbfxR3XgBUlNnsFFE0Y1o5I3eCSmQ7ARKBRSJCQZjCF8/Rs20Ga7mQ5NaZQeDcmdCDm7fqnIteMR3/aeaZrcS8BrcDS45Pl24xBynfmMtmF7PJrA3PtSB9gETixDmGqgqGodLh6b3yE4jXV1xOy2ElQwcwKokbgcW8fygKB9KTmTUGxxGzPshFHnsrm/A9tIxQXhdEaVENrLhhtdXnVaCKvCXurhqlQ/6phnIIuS3TITcgrRlnKZJ7GN2d+kZODuOabVusfkmF7o+DMCmgng+fSNoYjcIGsWvE21hmRxrCjh1yH8BnkM70VaTqP6pNsHesDuyfdAu8I/kjL0jvTeeK5jQ== jongwon@Jongwonui-MacBookPro.local
   ldap_username: jongwon.lee
 - name: minwook
   uid: 2029
@@ -68,6 +69,7 @@ users:
 - name: seungchul
   uid: 2041
   groups: [ sw_dev ]
+  ssh_public_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINzCkdzaAPYe0WNgyOyV14gqZlaBcLbi6zkZSLTaUC0y seungchul.han@rebellions.ai
   ldap_username: seungchul.han
 - name: wonsubkim
   uid: 2030
