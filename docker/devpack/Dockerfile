@@ -1,11 +1,11 @@
 ################################################################################
 # export REBEL_PYPI_USERNAME=XXXXXXXX REBEL_PYPI_PASSWORD=XXXXXXXX REBEL_R18S_PYPI_USERNAME=XXXXXXXX REBEL_R18S_PYPI_PASSWORD=XXXXXXXX
-# export REPO=docker.e2e.sw2.rebellions.in/rebellions-sw/devpack TAG=r18s7
-# docker build -t        "$REPO:$TAG"     --target full      --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
-# docker build -t    "$REPO-app:$TAG"     --target app       --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
-# docker build -t  "$REPO-toolchain:$TAG" --target toolchain --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
-# docker build -t "$REPO-python:$TAG"     --target python    --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
-# docker build -t "$REPO-driver:$TAG"     --target driver    --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
+# export REPO=docker.e2e.sw2.rebellions.in/rebellions-sw/devpack TAG=r18s8
+# docker build -t           "$REPO:$TAG" --target full      --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
+# docker build -t       "$REPO-app:$TAG" --target app       --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
+# docker build -t "$REPO-toolchain:$TAG" --target toolchain --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
+# docker build -t    "$REPO-python:$TAG" --target python    --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
+# docker build -t    "$REPO-driver:$TAG" --target driver    --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
 
 ARG PLATFORM=linux/amd64
 FROM --platform=$PLATFORM ubuntu:22.04 AS base
@@ -17,7 +17,7 @@ ARG ATOM_DRIVER_VERSION=2.0.1
 ARG RBLN_CCL_VERSION="$ATOM_DRIVER_VERSION"
 ARG BCM_DRIVER_VERSION=233.1.135.7
 ARG BCM_LIBBNXT_RE_VERSION=233.0.152.2
-ARG LLVM_VERSION=19.1.7-rbln-250915
+ARG LLVM_VERSION=20.1.0-rbln-251111
 ARG OPTIMUM_RBLN_VERSION=0.7.5rc3.dev3+g0e82798
 ARG RAY_VERSION=2.46.0
 ARG REBEL_COMPILER_VERSION=0.7.5.dev166+g8d596379
@@ -147,7 +147,7 @@ RUN PYTHONUNBUFFERED=1 DEBIAN_FRONTEND=noninteractive apt update && \
 RUN --mount=type=secret,id=REBEL_PYPI_USERNAME,env=REBEL_PYPI_USERNAME \
   --mount=type=secret,id=REBEL_PYPI_PASSWORD,env=REBEL_PYPI_PASSWORD \
   pip install poetry==2.0.1 --no-cache && \
-  poetry init -n --python '>=3.10,<3.13' && \
+  poetry init -n --python '>=3.10,<3.14' && \
   poetry source add rbln-r18s --priority supplemental -- https://pypi.e2e.sw2.rebellions.in/simple && \
   poetry source add rbln --priority supplemental -- https://pypi.rebellions.in/simple && \
   poetry source add torch --priority supplemental -- https://download.pytorch.org/whl/cpu && \
@@ -168,22 +168,30 @@ FROM python AS toolchain
 
 RUN PYTHONUNBUFFERED=1 DEBIAN_FRONTEND=noninteractive apt update && \
   apt install -y \
-    build-essential \
-    gcc-12 \
-    g++-12 \
     ccache \
+    g++-12 \
+    gcc-12 \
     libbz2-dev \
     libcmocka-dev \
-    libnuma-dev \
     libdrm-dev \
     libibverbs-dev \
+    libnuma-dev \
     librdmacm-dev \
     rdma-core \
+    software-properties-common \
     zlib1g-dev && \
   apt clean && \
   rm -rf /var/lib/apt/lists/*
 
-RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 10 --slave /usr/bin/g++ g++ /usr/bin/g++-11 && \
+RUN PYTHONUNBUFFERED=1 DEBIAN_FRONTEND=noninteractive add-apt-repository ppa:ubuntu-toolchain-r/test && \
+  apt update && \
+  apt install -y \
+    gcc-13 \
+    g++-13 && \
+  apt clean && \
+  rm -rf /var/lib/apt/lists/*
+
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-13 10 --slave /usr/bin/g++ g++ /usr/bin/g++-13 && \
   update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 20 --slave /usr/bin/g++ g++ /usr/bin/g++-12
 
 COPY "$REBEL_DEPENDENCY_DIR/llvm-$LLVM_VERSION/" /tools/lib/rebel_dependency/llvm/
