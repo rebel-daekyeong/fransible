@@ -1,6 +1,6 @@
 ################################################################################
 # export REBEL_PYPI_USERNAME=XXXXXXXX REBEL_PYPI_PASSWORD=XXXXXXXX REBEL_R18S_PYPI_USERNAME=XXXXXXXX REBEL_R18S_PYPI_PASSWORD=XXXXXXXX
-# export REPO=docker.e2e.sw2.rebellions.in/rebellions-sw/devpack TAG=r18s6
+# export REPO=docker.e2e.sw2.rebellions.in/rebellions-sw/devpack TAG=r18s7
 # docker build -t        "$REPO:$TAG"     --target full      --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
 # docker build -t    "$REPO-app:$TAG"     --target app       --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
 # docker build -t  "$REPO-toolchain:$TAG" --target toolchain --secret id=REBEL_PYPI_USERNAME --secret id=REBEL_PYPI_PASSWORD --secret id=REBEL_R18S_PYPI_USERNAME --secret id=REBEL_R18S_PYPI_PASSWORD /
@@ -169,6 +169,8 @@ FROM python AS toolchain
 RUN PYTHONUNBUFFERED=1 DEBIAN_FRONTEND=noninteractive apt update && \
   apt install -y \
     build-essential \
+    gcc-12 \
+    g++-12 \
     ccache \
     libbz2-dev \
     libcmocka-dev \
@@ -180,6 +182,9 @@ RUN PYTHONUNBUFFERED=1 DEBIAN_FRONTEND=noninteractive apt update && \
     zlib1g-dev && \
   apt clean && \
   rm -rf /var/lib/apt/lists/*
+
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 10 --slave /usr/bin/g++ g++ /usr/bin/g++-11 && \
+  update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 20 --slave /usr/bin/g++ g++ /usr/bin/g++-12
 
 COPY "$REBEL_DEPENDENCY_DIR/llvm-$LLVM_VERSION/" /tools/lib/rebel_dependency/llvm/
 COPY "$REBEL_DEPENDENCY_DIR/GCC-12.1.0/" /tools/lib/rebel_dependency/GCC-12.1.0/
